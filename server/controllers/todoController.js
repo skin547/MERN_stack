@@ -27,7 +27,7 @@ exports.create = async (req, res) => {
     await todoInstance.save( (err) => {
         if(err) console.log(err);
     } );
-    res.send(todoInstance);
+    res.status(201).send("success");
 }
 
 exports.update = async (req, res) => {
@@ -46,10 +46,8 @@ exports.update = async (req, res) => {
 
 //   res.send(product);
 
-    // res.send("NOT IMPLEMENTED");
     let result = await todoModel.updateOne( {_id:req.params.id} , 
         {
-            title: req.body.title,
             date: new Date(),
             content: req.body.content,
             progress: req.body.progress
