@@ -1,23 +1,31 @@
 import React from 'react';
 
-const Todo = ({todo}) =>{
+const Todo = ({todo, update}) =>{
+    
     const removeTodo = () => {
-        let url = 'http://localhost:8000/todos/' + todo._id;
+        let url = '/api/todos/' + todo._id;
         fetch(url, {method:'delete'})
-        .then( res => console.log(res));
-        // console.log(url);
+        .then( res => console.log(res))
+        .then( () => update() );
     }
+
     return (
-        <div>
-            <h3>{todo.title}</h3>
-            <h4>
+        <div className='row shadow p-3 mb-3 rounded'>
+        
+            <div className = 'col-9' style = { { "fontSize" : "16pt" } } >
                 {todo.content}
-                <button className='btn btn-danger' style={{marginLeft:'10px'}} onClick={removeTodo}>X</button>
-            </h4>
-            
-            <hr/>
+            </div>
+
+            <div className='col'>
+                <button type="button" class="close" aria-label="Close" onClick={removeTodo}>
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+
         </div>
     )
 }
+
 
 export default Todo;

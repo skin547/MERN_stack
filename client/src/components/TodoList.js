@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import Todo from './Todo.js';
-
+import LoadingIcon from './LoadingIcon';
 
 const TodoList = () =>{
 	const [todo,setTodo] = useState('');
@@ -12,12 +12,11 @@ const TodoList = () =>{
 	const createTodo = () => {
 		console.log(todo);
 	
-		fetch('http://localhost:8000/todos/',
+		fetch('api/todos/',
 		  {
 			method: "POST",
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({
-				// "title":title,
 				"content": todo
 			})
 		  })
@@ -29,9 +28,8 @@ const TodoList = () =>{
 	  }
 
     const FetchData = () => {
-      fetch("http://localhost:8000/todos")
+      fetch("api/todos")
             .then(res => res.json())
-            // .then(res => res.data )
             .then(res => { 
               setTodos(res);
               setIsLoading(false);
@@ -52,18 +50,23 @@ const TodoList = () =>{
       FetchData();
     },[])
     
-  
-  
     return (
-        <div>
+        <div className='container'>
+
 			<h3>Todo-List</h3>
-			<input className='form-control' type='text' id='input_todo' onChange={handleInputChange} required></input>
-			<p></p>
-	
-			<button className='btn btn-primary' onClick={createTodo}>add</button>
+
+			<div className='row '>
+				<input className='form-control col-9' type='text' id='input_todo' onChange={handleInputChange} required></input>
+				<button className='btn btn-primary col ml-1' onClick={createTodo} >add</button>
+			</div>
+
         	<hr/>
-            {isLoading ? <p>Loading...</p> :  todos.map( (todo) => <Todo key = {todo._id} todo = {todo} /> )}
-            {isFail && <p> Some error occur when connecting to server!</p>}
+
+			<div>
+				{ isLoading ? <LoadingIcon/> :  todos.map( (todo) => <Todo key = {todo._id} todo = {todo} update={FetchData}/> ) }
+				{ isFail && <p> Some error occur when connecting to server!</p> }
+			</div>
+			
         </div>
     )
 }

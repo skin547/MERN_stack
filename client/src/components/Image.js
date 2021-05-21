@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-const Image = ({url}) => {
+const Image = ({imgUrl, update}) => {
+    const [src, setSrc] = useState();
+
+    useEffect( () => {
+        setSrc( "api/images/" + imgUrl );
+        update();
+    }, []);
+    
     return(
-        <image src={{url}}></image>
+        <div>
+            <img src={ src } loading="lazy" class="img-thumbnail" alt="Responsive" />
+            <hr/>
+        </div>
     )
 }
 

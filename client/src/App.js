@@ -1,28 +1,28 @@
 import React from 'react';
 import './App.css';
 import TodoList from "./components/TodoList";
-import UrlList from "./components/UrlList";
-import UploadImageForm from './components/UploadImageForm';
+import ShortUrlList from "./components/ShortUrlList";
+import ImageList from './components/ImageList';
+import Navbar from './components/Navbar';
 
 function App() {
 
   return (
     <div className="App">
-		<body>
-			<div className='container'>
-				<div className='row'>
-					<div className='col-md'>
-						<TodoList/>
-					</div>
-					<div className='col-md'>
-						<UrlList/>
-					</div>
-					<div className='col-md'>
-						<UploadImageForm/>
-					</div>
+		<Navbar/>
+		<div className='container'>
+			<div className='row'>
+				<div className='col-md'>
+					<TodoList/>
+				</div>
+				<div className='col-md'>
+					<ShortUrlList/>
+				</div>
+				<div className='col-md'>
+					<ImageList/>
 				</div>
 			</div>
-		</body>
+		</div>
     </div>
   );
 }
